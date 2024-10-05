@@ -5,12 +5,21 @@ import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 import ExpressMongoSanitize from 'express-mongo-sanitize'
+import { v2 as cloudinary } from 'cloudinary';
+
 
 
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT
+
+// Configuration
+cloudinary.config({ 
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME , 
+    api_key: process.env.CLOUDINARY_API_KEY, 
+    api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
+});
 
 //middlewares
 app.use(express.json())
