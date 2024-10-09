@@ -28,7 +28,7 @@ export const  allProduct = asyncHandler(async(req, res) => {
 
 
     const page = req.query.page * 1|| 1
-    const limitData = req.query.limit * 1 || 8
+    const limitData = req.query.limit * 1 || 6
     const skipData = (page - 1) * limitData 
 
     query = query.skip(skipData).limit(limitData)
@@ -43,14 +43,14 @@ export const  allProduct = asyncHandler(async(req, res) => {
          }
     }
     const data = await query
-    const totalPage = Math.ceil(countProduct/limitData)
+    const totalPage = Math.ceil(countProduct / limitData)
     return res.status(200).json({
         message: "Get all product",
         data,
         pagination: {
             totalPage,
             page,
-            totalPeoduct: countProduct
+            totalProduct: countProduct
         }
     })
 })
