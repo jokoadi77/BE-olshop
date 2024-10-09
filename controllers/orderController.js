@@ -79,7 +79,7 @@ export const CreateOrder = asyncHandler(async(req, res) => {
           "phone": phone,
           },
       }
-      const token = await snap.createTransactionToken(parameter)
+      const token = await snap.createTransaction(parameter)
     //midtrans
 
  
