@@ -28,7 +28,7 @@ export const  allProduct = asyncHandler(async(req, res) => {
 
 
     const page = req.query.page * 1|| 1
-    const limitData = req.query.limit * 1 || 6
+    const limitData = req.query.limit * 1 || 8
     const skipData = (page - 1) * limitData 
 
     query = query.skip(skipData).limit(limitData)

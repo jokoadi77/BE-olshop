@@ -7,7 +7,9 @@ dotenv.config()
 
 let snap = new midtransClient.Snap({
     isProduction : false,
-    serverKey : process.env.MIDTRANS_SERVER
+    serverKey : process.env.MIDTRANS_SERVER,
+    clientKey: process.env.MIDTRANS_CLIENT_KEY
+    
 });
 
 
@@ -77,7 +79,7 @@ export const CreateOrder = asyncHandler(async(req, res) => {
           "phone": phone,
           },
       }
-      const token = await snap.createTransaction(parameter)
+      const token = await snap.createTransactionToken(parameter)
     //midtrans
 
  
