@@ -97,7 +97,7 @@ export const deleteProduct = asyncHandler(async(req, res) => {
 export const fileUpload = asyncHandler(async(req, res) => {
   const stream = cloudinary.uploader.upload_stream({
     folder: 'uploads',
-    allowed_formats: ['jpg', 'png']
+    allowed_formats: ['jpg', 'png',"webp"]
   },
     function(err, result){
         if (err) {
