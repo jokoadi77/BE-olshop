@@ -8,7 +8,6 @@ dotenv.config()
 let snap = new midtransClient.Snap({
     isProduction : false,
     serverKey : process.env.YOUR_SERVER_KEY,
-    clientKey : process.env.YOUR_CLIENT_KEY
 });
 
 
@@ -41,6 +40,7 @@ export const CreateOrder = asyncHandler(async(req, res) => {
             product: _id
         } 
         const shortName = name.substring(0,30)
+        
         const singleProductMidtrans = {
             quantity: cart.quantity,
             name: shortName,
@@ -127,6 +127,7 @@ export const AllOrder = asyncHandler(async(req, res) => {
 
         const orderData = await Order.findById(orderId)
         // Sample transactionStatus handling logic
+
 
         if(!orderData) {
             res.status(404)
