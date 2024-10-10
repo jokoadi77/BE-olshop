@@ -7,9 +7,7 @@ dotenv.config()
 
 let snap = new midtransClient.Snap({
     isProduction : false,
-    serverKey : process.env.MIDTRANS_SERVER,
-    clientKey: process.env.MIDTRANS_CLIENT_KEY
-    
+    serverKey : process.env.MIDTRANS_SERVER    
 });
 
 
@@ -34,7 +32,12 @@ export const CreateOrder = asyncHandler(async(req, res) => {
             throw new Error("product not found")
         }
 
-        const {name, price, _id} = productData
+        const {name, price, _id, stock} = productData
+
+        if(cart.quantity > stock) {
+          res.status(404)
+          throw new Error(`Product ${name} quantity exceed the  limit from ${stock} stock`)
+        }
         const singleProduct = {
             quantity: cart.quantity,
             name,
@@ -126,7 +129,6 @@ export const AllOrder = asyncHandler(async(req, res) => {
         let orderId = statusResponse.order_id;
         let transactionStatus = statusResponse.transaction_status;
         let fraudStatus = statusResponse.fraud_status;
-        console.log(`Transaction notification received. Order ID: ${orderId}. Transaction status: ${transactionStatus}. Fraud status: ${fraudStatus}`)
         const orderData = await Order.findById(orderId)
         // Sample transactionStatus handling logic
 
@@ -137,7 +139,7 @@ export const AllOrder = asyncHandler(async(req, res) => {
         }
   
         if (transactionStatus == 'capture' || transactionStatus == 'settlement'){
-        if (fraudStatus == 'accept'){
+            if (fraudStatus == 'accept'){
               const orderProduct = orderData.itemsDetail
 
               for(const itemProduct of orderProduct) {
