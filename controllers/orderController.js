@@ -2,10 +2,12 @@ import asyncHandler from "../middlewares/asyncHandler.js";
 import Product from "../models/productModel.js";
 import Order from "../models/orderModel.js";
 import midtransClient from 'midtrans-client'
+import dotenv from'dotenv'
+dotenv.config()
 
 let snap = new midtransClient.Snap({
     isProduction : false,
-    serverKey: process.env.MIDTRANS_SERVER,
+    serverKey : process.env.MIDTRANS_SERVER,
     clientKey: process.env.MIDTRANS_CLIENT_KEY,
 });
 
